@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.Queue;
+import java.util.LinkedList;
 public class Optional {
     public static void dfs(int start, int[][] matrix, int size, int[] connected, int comp) {
         connected[start] = comp;
@@ -16,6 +18,20 @@ public class Optional {
                 matrix[start][i] = 2; matrix [i][start] = 2;
                 dfs_tree(i, matrix, size, connected, comp);
             }
+    }
+    public static void bfs(int start, int[][]matrix, int size, int [] connected) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+        connected[start] = 1;
+        while(!queue.isEmpty()) {
+            int current = queue.remove();
+            for(int i = 0; i < size; i++)
+                if(connected[i] == 0 && matrix[current][i] != 0 ){
+                    matrix[current][i] = 2; matrix [i][current] = 2;
+                    queue.add(i);
+                    connected[i] = 1;
+                }
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -78,7 +94,7 @@ public class Optional {
                 System.out.println("Graph is connected!");
                 for (int i = 0; i < n; i++)
                     connected[i] = 0;
-                dfs_tree(0, matrix, n, connected, 1);
+                bfs(0, matrix, n, connected);
                 for (int i = 0; i < n; i++) {
                     for (int j = 0; j < n; j++) {
                         if (matrix[i][j] == 2) {
