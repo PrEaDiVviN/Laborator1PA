@@ -7,9 +7,9 @@ public class Compulsory {
         String[] languages = new String[] {"C", "C++", "C#", "Python", "Go", "Rust", "JavaScript", "PHP", "Swift", "Java"};
         int n = (int) (Math.random() * 1_000_000);
         int result = n * 3;
-        int aux = Integer.parseInt("10101",2);
+        int aux = 0b10101;
         result = result + aux;
-        aux = Integer.parseInt("FF",16);
+        aux = 0xFF;
         result = result + aux;
         result = result * 6;
         int result_new;
