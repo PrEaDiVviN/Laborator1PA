@@ -17,7 +17,7 @@ public class Bonus {
 
 
     public static void main( String[] args) {
-        int size_tree = 5;
+        int size_tree = 10;
         int[][] matrix = new int [size_tree + 1][size_tree + 1];
         boolean []added = new boolean[size_tree + 1];
         Random rand = new Random();
