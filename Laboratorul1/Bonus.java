@@ -29,16 +29,16 @@ public class Bonus {
         while(numberChildren != 0) { /* Constructia arborelui random */
 
             //choosing the number of children
-            int child_num = rand.nextInt(numberChildren + 1);
-            if (numberChildren - child_num >= 0 && child_num > 0) {
+            int childNum = rand.nextInt(numberChildren + 1);
+            if (numberChildren - childNum >= 0 && childNum > 0) {
                 int current = queue.pop();
-                numberChildren = numberChildren - child_num;
-                while (child_num > 0) { // adding the new node as a child to the current node
+                numberChildren = numberChildren - childNum;
+                while (childNum > 0) { // adding the new node as a child to the current node
                     int child = rand.nextInt(sizeTree);
                     if (!added[child] && current != child) {
                         matrix[current][child] = 1;
                         matrix[child][current] = 1;
-                        child_num = child_num - 1;
+                        childNum = childNum - 1;
                         added[child] = true;
                         queue.add(child);
                     }
