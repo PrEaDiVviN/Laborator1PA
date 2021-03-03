@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Random;
 import java.util.Vector;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,7 +9,7 @@ import java.io.IOException;
 /**
  * Class which encapsulates the data of the problem and expresses the problem.
  *
- * @author  Hutu Alexandru Dumitru
+ * @author Hutu Alexandru Dumitru
  */
 
 public class Problem {
@@ -82,6 +83,7 @@ public class Problem {
 
     /**
      * Returns a reference to the cost matrix which contains the bidimensional representation of the cost of transport
+     *
      * @return type int[][] representing a matrix of cost transport.
      */
     public int[][] getCost() {
@@ -147,7 +149,7 @@ public class Problem {
      * Method to read from the keyboard the cost matrix of the problem
      *
      * @throws IOException If an input or output
-     *                        exception occurred
+     *                     exception occurred
      */
 
     public void initializeMatrixKeyboard() throws IOException {
@@ -165,6 +167,62 @@ public class Problem {
      */
     public void printProblem() {
         System.out.print(this.toString());
+    }
+
+    /**
+     * Generates a random instance of a problem to be solved. The number of sources, number of destination
+     * the type of sources (Warehouse, Factory) and cost of transport is random.
+     *
+     * @param upperLimit the upper limit for the cost of transport, number of sources, and number of destination
+     */
+    public void generateRandomInstance(int upperLimit) {
+        int totalSupply = 0; ///Supply-ul total care trebuie sa fie egal cu demand-ul
+        //initializam vectorii
+        sources = new Vector<>();
+        destinations = new Vector<>();
+        //obtinem numarul de surse
+        Random rand = new Random();
+        int numberSources = rand.nextInt(upperLimit) + 1;
+        int numberDestination = rand.nextInt(upperLimit) + 1;
+        this.cost = new int[numberSources + 1][numberDestination + 1];
+        //obtinem sursele
+        for (int i = 0; i < numberSources; i++) {
+            int type = rand.nextInt(2); // daca obiectul adaugat este Warehouse(1) sau Factory(0)
+            if (type == 1) {
+                int supply = rand.nextInt(upperLimit) + 1;
+                sources.add(i, new Warehouse("Firma_" + i, supply));
+                totalSupply = totalSupply + supply;
+            } else {
+                int supply = rand.nextInt(upperLimit) + 1;
+                sources.add(i, new Factory("Firma_" + i, supply));
+                totalSupply = totalSupply + supply;
+            }
+        }
+        //obtinem destinatiile
+        for (int i = 0; i < numberDestination; i++) {
+            while (totalSupply > 0) {
+                int type = rand.nextInt(2); // daca obiectul adaugat este Warehouse(1) sau Store(0)
+                if (type == 1) {
+                    int demand = rand.nextInt(totalSupply) + 1;
+                    destinations.add(i, new Destination("Dest_" + i, DestinationType.WAREHOUSE, demand));
+                    totalSupply = totalSupply - demand;
+                } else {
+                    int demand = rand.nextInt(totalSupply) + 1;
+                    destinations.add(i, new Destination("Dest_" + i, DestinationType.STORE, demand));
+                    totalSupply = totalSupply - demand;
+                }
+                if (totalSupply != 0)
+                    i++;
+            }
+            destinations.add(i, new Destination("Dest_" + i, DestinationType.WAREHOUSE, 0));
+        }
+        //obtinem matricea de cost
+        for (int i = 0; i < numberSources; i++) {
+            for (int j = 0; j < numberDestination; j++) {
+                int actualCost = 1 + rand.nextInt(upperLimit);
+                cost[i][j] = actualCost;
+            }
+        }
     }
 
     /**
