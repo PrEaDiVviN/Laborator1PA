@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * Class which encapsulates a Problem and expresses the solution to that problem
  *
- * @author  Hutu Alexandru Dumitru
+ * @author Hutu Alexandru Dumitru
  */
 
 
@@ -49,7 +49,7 @@ public class Solution {
      *
      * @param problem the problem to be solved
      */
-    Solution(Problem problem) {
+    public Solution(Problem problem) {
         this.problem = problem;
         solved = false;
     }
@@ -155,5 +155,145 @@ public class Solution {
             printingSolution.append("The cost of the transport is: " + transport + ".\n");
             solved = true;
         }
+    }
+
+    /**
+     * Solves the problem introduced by using Vogel's Approximation Algorithm
+     */
+
+    public void solveProblemVogelsApproximation() {
+        printingSolution = new StringBuilder();
+        printingSolution.append("Printing solution:----------------------------------------------------\n");
+        //variabila ce va tine minte costul de transport
+        int transport = 0;
+        //matricea de cost
+        int[][] cost = problem.getCost();
+        //vectori utilizati pentru retinerea destinatiilro si surselor
+        Vector<Destination> destinations = problem.getDestinations();
+        Vector<Source> sources = problem.getSources();
+        //indexi n pt a retine numarul de linii(surse), m pt a retine numarul de coloane(destinatii)
+        //utilizati pentru simplitate
+        int n = problem.getLineNumber();
+        int m = problem.getColumnNumber();
+        //Vectori ce vor fi folositi pentru a calcula diferenta pe linie si pe coloana
+        int[] rowDiference = new int[n + 1];
+        int[] columnDiference = new int[m + 1];
+        //Vectori ce indica daca o linie sau o coloana mai este activa, initial toate sunt active
+        boolean[] activeRow = new boolean[n + 1];
+        boolean[] activeColumn = new boolean[m + 1];
+        for (int i = 0; i < n; i++)
+            activeRow[i] = true;
+        for (int i = 0; i < m; i++)
+            activeColumn[i] = true;
+        ///variabile ce tin minte cea mai mica valoare  si a doua cea mai mica valoare
+        int leastValue = Integer.MAX_VALUE;
+        int secondValue = Integer.MAX_VALUE;
+
+        boolean repeta = true;//variabila ce spune cand se termina algoritmul
+        while (repeta) {
+            leastValue = Integer.MAX_VALUE;
+            secondValue = Integer.MAX_VALUE;
+            //Obtinem diferenta pe linii
+            for (int i = 0; i < n; i++)
+                if (activeRow[i]) {
+                    leastValue = Integer.MAX_VALUE;
+                    secondValue = Integer.MAX_VALUE;
+                    for (int j = 0; j < m; j++)
+                        if (activeColumn[j] && cost[i][j] <= leastValue) {
+                            secondValue = leastValue;
+                            leastValue = cost[i][j];
+                        } else if (cost[i][j] < secondValue) {
+                            secondValue = cost[i][j];
+                        }
+                    rowDiference[i] = secondValue - leastValue;
+                }
+            //Obtinem diferenta pe coloane
+            for (int j = 0; j < m; j++)
+                if (activeColumn[j]) {
+                    leastValue = Integer.MAX_VALUE;
+                    secondValue = Integer.MAX_VALUE;
+                    for (int i = 0; i < n; i++)
+                        if (activeRow[i] && cost[i][j] <= leastValue) {
+                            secondValue = leastValue;
+                            leastValue = cost[i][j];
+                        } else if (cost[i][j] < secondValue) {
+                            secondValue = cost[i][j];
+                        }
+                    columnDiference[j] = secondValue - leastValue;
+                }
+
+            //obtinem penalizarea cea mai mare si indexul sau si de asemenea unde se gaseste, linie sau coloana
+            int type = 0; //1 = linie, 2 = coloana
+            int penalty = Integer.MIN_VALUE; //penalizarea
+            int index = 0; //indexul
+            for (int i = 0; i < n; i++)
+                if (activeRow[i] && rowDiference[i] >= penalty) {
+                    penalty = rowDiference[i];
+                    index = i;
+                    type = 1;
+                }
+            for (int i = 0; i < m; i++)
+                if (activeColumn[i] && columnDiference[i] >= penalty) {
+                    penalty = columnDiference[i];
+                    index = i;
+                    type = 2;
+                }
+            //gasim celula cu valoarea minima a costului in matricea de cost
+            if (type == 1) { //verificam pe linie
+                int minValue = Integer.MAX_VALUE;
+                int indexForTransport = -1;
+                for (int j = 0; j < m; j++) {
+                    if (activeColumn[j] && cost[index][j] < minValue) {
+                        minValue = cost[index][j];
+                        indexForTransport = j;
+                    }
+                }
+                int substract = Integer.min(sources.get(index).getSupply(), destinations.get(indexForTransport).getDemand());
+                transport = transport + substract * cost[index][indexForTransport];
+                printingSolution.append("Sending from " + sources.get(index).getName() + " " + (index + 1) + " to " +
+                        destinations.get(indexForTransport).getName() + " " + (indexForTransport + 1) + " " +
+                        Integer.min(sources.get(index).getSupply(), destinations.get(indexForTransport).getDemand()) + " units.\n");
+
+                destinations.get(indexForTransport).setDemand(destinations.get(indexForTransport).getDemand() - substract);
+                sources.get(index).setSupply(sources.get(index).getSupply() - substract);
+                //daca demand-ul curent este 0, atunci inchidem coloana ; similar pentru linie
+                if (destinations.get(indexForTransport).getDemand() == 0)
+                    activeColumn[indexForTransport] = false;
+                if (sources.get(index).getSupply() == 0)
+                    activeRow[index] = false;
+
+            } else { ///verificam pe coloana
+                int minValue = Integer.MAX_VALUE;
+                int indexForTransport = -1;
+                for (int i = 0; i < n; i++) {
+                    if (activeRow[i] && cost[i][index] < minValue) {
+                        minValue = cost[i][index];
+                        indexForTransport = i;
+                    }
+                }
+                int substract = Integer.min(sources.get(indexForTransport).getSupply(), destinations.get(index).getDemand());
+                transport = transport + substract * cost[indexForTransport][index];
+                printingSolution.append("Sending from " + sources.get(indexForTransport).getName() + " " + (indexForTransport + 1) + " to " +
+                        destinations.get(index).getName() + " " + (index + 1) + " " +
+                        Integer.min(sources.get(indexForTransport).getSupply(), destinations.get(index).getDemand()) + " units.\n");
+
+                destinations.get(index).setDemand(destinations.get(index).getDemand() - substract);
+                sources.get(indexForTransport).setSupply(sources.get(indexForTransport).getSupply() - substract);
+                //daca demand-ul curent este 0, atunci inchidem coloana ; similar pentru linie
+                if (destinations.get(index).getDemand() == 0)
+                    activeColumn[index] = false;
+                if (sources.get(indexForTransport).getSupply() == 0)
+                    activeRow[indexForTransport] = false;
+            }
+            //verificam ca inca mai avem demand
+            repeta = false;
+            for (int i = 0; i < m; i++)
+                if (destinations.get(i).getDemand() > 0) {
+                    repeta = true;
+                    i = m;
+                }
+        }
+        printingSolution.append("The cost of the transport is: " + transport + ".\n");
+        solved = true;
     }
 }
