@@ -29,12 +29,6 @@ public class Main {
         v5.setLatitude(155.6);
         v5.setLongitude(14.7);
         Restaurant v6 = new Restaurant("Restaurant", "Best restaurant", "restaurant.href", 124.3, 135.4, 1);
-        v1.place = 0;
-        v2.place = 1;
-        v3.place = 2;
-        v4.place = 3;
-        v5.place = 4;
-        v6.place = 5;
         v1.setCost(v2, 30);
         v1.setCost(v2, 50);
         v2.setCost(v3, 20);
