@@ -8,7 +8,6 @@ public abstract class Location extends Coordinate implements Comparable<Location
     private String description;
     private String imageHref;
     private Map<Location, Integer> cost = new HashMap();
-    public int place;
 
     public Map<Location, Integer> getCost() {
         return cost;
