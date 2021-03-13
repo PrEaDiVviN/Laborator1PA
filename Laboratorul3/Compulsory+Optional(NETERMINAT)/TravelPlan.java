@@ -4,9 +4,9 @@ import java.util.*;
 
 public class TravelPlan {
     private City city;
-    private ArrayList<Integer> preferences = new ArrayList<>();
+    private List<Integer> preferences = new ArrayList<>();
 
-    public ArrayList<Integer> getPreferences() {
+    public List<Integer> getPreferences() {
         return preferences;
     }
 
@@ -30,24 +30,51 @@ public class TravelPlan {
         this.city = city;
     }
 
-    static class sortByTimeAndPreferences implements Comparator<Integer> {
-        public int compare(Integer a, Integer b) {
-            return a.compareTo(b);
+    public static int compare(Integer a, Integer b) {
+            return a - b;
         }
-    }
+
 
     public void getBestTravelPlan() {
-        ArrayList<Boolean> vizitat = new ArrayList<>();
-        ArrayList<Integer> tata = new ArrayList<>();
-        ArrayList<Integer> distanta = new ArrayList<>();
+        boolean[] vizitat = new boolean[city.getNodes().size()];
+        int[] tata = new int[city.getNodes().size()];
+        int[] distanta = new int[city.getNodes().size()];
         int bigValue = Integer.MAX_VALUE;
         int start = 0; /* Nodul de start -> hotelul */
-        PriorityQueue<Integer> queue = new PriorityQueue(preferences.size(), new sortByTimeAndPreferences());
-        for (int i = 0; i < preferences.size(); i++) {
-            distanta.add(bigValue);
-            vizitat.add(false);
-            tata.add(0);
+        for (int i = 0; i < city.getNodes().size(); i++) {
+            distanta[i] = bigValue;
+            vizitat[i] = false;
+            tata[i] = 0;
         }
+        distanta[0] = 0;
+        List<Location> nodes = city.getNodes();
+        for (int i = 0; i < nodes.size(); i++) {
+            int min = bigValue;
+            int min_index = -1;
+            for (int j = 0; j < nodes.size(); j++)
+                if (!vizitat[j] && distanta[j] <= min) {
+                    min = distanta[j];
+                    min_index = j;
+                }
 
+            vizitat[min_index] = true;
+            for (int j = 0; j < nodes.size(); j++)
+                if (!vizitat[j] && nodes.get(min_index).getCost().containsKey(nodes.get(j))
+                        && distanta[min_index] != bigValue && (distanta[min_index] +
+                        nodes.get(min_index).getCost().get(nodes.get(j)) < distanta[j])) {
+                    distanta[j] = distanta[min_index] + nodes.get(min_index).getCost().get(nodes.get(j));
+                    tata[j] = min_index;
+                }
+        }
+        System.out.println("Urmatoarele sunt distantele!");
+        for (int i = 0; i < nodes.size(); i++) {
+            System.out.println(distanta[i] + " ");
+        }
+        System.out.println("");
+        /*
+        for (int i = 0; i < nodes.size(); i++) {
+            System.out.println((tata[i] + 1) + " ");
+        */
+        }
     }
 }
