@@ -3,7 +3,6 @@ package com.company;
 import java.time.LocalTime;
 
 /**
- * Partea de optional nu este terminata. Va fi realizata pana la ora urmatoare.
  *
  * @author Hutu Alexandru Dumitru
  */
@@ -29,16 +28,17 @@ public class Main {
         v5.setLatitude(155.6);
         v5.setLongitude(14.7);
         Restaurant v6 = new Restaurant("Restaurant", "Best restaurant", "restaurant.href", 124.3, 135.4, 1);
-        v1.setCost(v2, 30);
-        v1.setCost(v2, 50);
+        v1.setCost(v2, 10);
+        v1.setCost(v3, 50);
         v2.setCost(v3, 20);
         v2.setCost(v4, 20);
         v2.setCost(v5, 10);
+        v3.setCost(v2, 20);
         v3.setCost(v4, 20);
         v4.setCost(v5, 30);
         v4.setCost(v6, 10);
+        v5.setCost(v4, 10);
         v5.setCost(v6, 20);
-        /*
         City city = new City("Iasi");
         city.addLocation(v1);
         city.addLocation(v2);
@@ -50,6 +50,6 @@ public class Main {
         TravelPlan travel = new TravelPlan(city);
         travel.addPreference(2);travel.addPreference(3);travel.addPreference(4);travel.addPreference(5);travel.addPreference(6);
         travel.getBestTravelPlan();
-    */
+
     }
 }
