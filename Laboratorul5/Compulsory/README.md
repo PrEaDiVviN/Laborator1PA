@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html>
   <headL>
-    <style>
-      ol {
-      counter-reset: item
-      }
-      li {
-        display: block
-      }
-      li:before {
-        content: counters(item, ".") " ";
-        counter-increment: item
-      }
-    </style>
   </head>  
   <body>
   <p>
