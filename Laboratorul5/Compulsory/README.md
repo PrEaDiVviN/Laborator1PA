@@ -20,13 +20,13 @@
     <strong>Item -></strong><br>
     <ol>
       <li>Image
-          <ol>
+          <ul>
             <li>String description</li>
             <li>String author</li>
             <li>Date dateStamp</li>
             <li>int height</li>
             <li>int height</li>
-          </ol>
+          </ul>
       </li>
       <li>Song</li>
       <li>Book</li>
