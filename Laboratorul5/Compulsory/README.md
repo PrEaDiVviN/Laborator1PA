@@ -8,7 +8,12 @@
     <strong>Item -></strong><br>
     <ol>
       <li>Image
-          <ol>2
+          <ol>
+            <li>String description</li>
+            <li>String author</li>
+            <li>Date dateStamp</li>
+            <li>int height</li>
+            <li>int height</li>
           </ol>
       </li>
       <li>Song</li>
