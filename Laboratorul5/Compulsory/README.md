@@ -41,7 +41,7 @@
       </li>
     </ol>
     <br>
-    Toate fac @Override toString() astfel incat sa afiseze toate datele incapsulate intr-un mod convenabil.<br>
+    Toate din cele 4 fac @Override toString() astfel incat sa afiseze toate datele incapsulate intr-un mod convenabil.<br>
     Locatiile folosite sunt atat in fisierul de sisteme local cat si URL-uri.<br>
   </p>
   </body>
