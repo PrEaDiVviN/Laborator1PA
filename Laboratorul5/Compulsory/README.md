@@ -5,7 +5,7 @@
   <body>
   <p>
     Am implementat toate cele 4 clase care extind clasa Item.<br>
-    Item -><br>
+    <strong>Item -></strong><br>
     <ol>
       <li>Image</li>
       <li>Song</li>
