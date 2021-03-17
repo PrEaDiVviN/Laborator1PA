@@ -14,7 +14,6 @@
             <li>Date dateStamp</li>
             <li>int height</li>
             <li>int width</li>
-            <li><strong>@Override toString</strong></li>
           </ul>
       </li>
       <li>Song
@@ -22,7 +21,6 @@
             <li>Duration songDuration</li>
             <li>Date releaseDate</li>
             <li>String madeByArtist</li>
-            <li><strong>@Override toString</strong></li>
           </ul>
       </li>
       <li>Book
@@ -31,7 +29,6 @@
             <li>float rating</li>
             <li>Date releaseDate</li>
             <li>String author</li>
-            <li><strong>@Override toString</strong></li>
            </ul>
       </li>
       <li>Movie
@@ -40,10 +37,11 @@
             <li>Date releaseDate</li>
             <li>String boxOffice</li>
             <li>float rating</li>
-            <li><strong>@Override toString</strong></li>
         </ul>
       </li>
     </ol>
+    <br>
+    Toate fac <strong>@Override toString()</strong> astfel incat sa afiseze toate datele incapsulate intr-un mod convenabil.
   </p>
   </body>
 </html>
