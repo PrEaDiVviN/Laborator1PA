@@ -2,7 +2,7 @@
   <head>
   </head>
   <body>
-    <p>Au fost create cele 2 clase Solution si Problem. Pe langa, a fost creata <strong> clasa abstracta Algorithm </strong> care are metoda abstracta <em>Solution solve(Problem P)</em>. <strong> Clasa greedyAlgorithm </strong> extinde clasa precedenta si rezolva problema printr-un algoritm greedy. Aceasta prezinta metoda <em>long getExecutionTime()</em> in plus si doua variabile de tip long: <em>start</em>,<em>end</em>.</p> 
+    <p>Au fost create cele 2 clase <strong>Solution</strong> si <strong>Problem</strong>. Pe langa, a fost creata <strong> clasa abstracta Algorithm </strong> care are metoda abstracta <em>Solution solve(Problem P)</em>. <strong> Clasa greedyAlgorithm </strong> extinde clasa precedenta si rezolva problema printr-un algoritm greedy. Aceasta prezinta metoda <em>long getExecutionTime()</em> in plus si doua variabile de tip long: <em>start</em>,<em>end</em>.</p> 
     <p><strong>java-faker</strong> a fost introdus prin intermediul jar-urilor. </p>
     <p><strong>query-urile</strong> se pot vedea in clasa Main in partea de jos a metodei main.</p>
     <p>Testarea algoritmului greedy a fost realiza in clasa <strong>greedyAlgorithmTest</strong> care are doua metode de testare:
