@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="libraryTable">
+    <library name="snakeyaml-1.23-android">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/Desktop/Anul2_semestrul2/PA/Laboratorul4/src/com/company/snakeyaml-1.23-android.jar!/" />
+        <root url="jar://$USER_HOME$/Desktop/Anul2_semestrul2/PA/Laboratorul4/src/com/company/generex-1.0.2.jar!/" />
+        <root url="jar://$USER_HOME$/Desktop/Anul2_semestrul2/PA/Laboratorul4/src/com/company/javafaker-1.0.2.jar!/" />
+        <root url="jar://$USER_HOME$/Desktop/Anul2_semestrul2/PA/Laboratorul4/src/com/company/commons-lang3-3.5.jar!/" />
+        <root url="jar://$USER_HOME$/Desktop/Anul2_semestrul2/PA/Laboratorul4/src/com/company/automaton-1.11-8.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+  </component>
+</project>
