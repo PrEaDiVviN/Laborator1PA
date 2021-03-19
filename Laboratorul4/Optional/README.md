@@ -15,7 +15,7 @@
       In clasa <strong>Student</strong> au fost adaugate 2 atribute in plus, <em>int varsta</em> si <em>Sex sex</em>.
     </p>
     <p>
-      <strong>Sex</strong> este un <strong>enum</strong> care are doua valori:<em>MALE</em> si <em>FEMALE</em>.
+      <strong>Sex</strong> este un <strong>enum</strong> care are doua valori: <em>MALE</em> si <em>FEMALE</em>.
     </p>
   </body>
 </html>
