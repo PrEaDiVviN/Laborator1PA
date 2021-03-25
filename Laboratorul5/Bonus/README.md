@@ -4,7 +4,7 @@
   </head>  
   <body>
   <p>
-    Detaliile implementate la partea de Optional se gasesc aici : <a href="https://github.com/PrEaDiVviN/PA-laboratoare/edit/main/Laboratorul5/Compulsory/README.md">Optional -> Link</a>
+    Detaliile implementate la partea de Optional se gasesc aici : <a href="https://github.com/PrEaDiVviN/PA-laboratoare/blob/main/Laboratorul5/Optional/README.md">Optional -> Link</a>
   </p>
   <p>
     Graful reprezentativ al itemilor unui catalog este dar prin clasa <strong>CatalogRepresentationGraph</strong>.<br> Reprezentarea este data prin hasmap-ul urmator: <em> Map( Item, List(Item)) representation</em>.
