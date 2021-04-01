@@ -41,13 +41,6 @@
             <li><em> @Override public String toString()</em> </li>
         </ul>
       </li>
-     </li>
-       <li><strong>GameBoard extends Board</strong>
-        <ul>
-            <li>List<Token> representationBoard = Collections.synchronizedList(new ArrayList<>());</li>
-            <li><em> public List<Token> generateGameBoard(int limit)</em> -> Lista generata intr-un mod random</li>
-        </ul>
-      </li>
       <li><strong>GameBoard extends Board</strong>
         <ul>
             <li>List<Token> representationBoard = Collections.synchronizedList(new ArrayList<>());</li>
