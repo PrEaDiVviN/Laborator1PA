@@ -65,5 +65,8 @@
   <p>
   Fiecare functionalitate a claselor DAO a fost testata in clasa <strong>Main</strong> in metoda <em>main</em>.
   </p>
+  <p>
+  In pom.xml a fost inserata o dependenta pentru o baza de date <strong>mysql</strong>
+  </p>
   </body>
 </html>
