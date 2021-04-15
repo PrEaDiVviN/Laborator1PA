@@ -4,66 +4,76 @@
   </head>  
   <body>
   <p>
-    Clasele folosite pentru modelare se afla in pachetul <strong>model</strong>: 
+  Clasele folosite pentru modelarea problemei sunt: 
    <ol>
-     <li><strong>Movie</strong>
+     <li><strong>Board</strong> -> clasa abstracta
        <ul>
-         <li><em>int id</em></li>
-         <li><em>String title</em></li>
-         <li><em>Date release_date</em></li>
-         <li><em>Time duration</em></li>
-         <li><em>int score</em></li>
+         <li><em>public abstract void showBoard()</em></li>
        </ul>
       </li>
-      <li><strong>Genre</strong> 
+      <li><strong>Playable</strong> -> interfata
           <ul>
-            <li><em>int id</em></li>
-            <li><em>String name</em></li>
+            <li><em>public void play();</em></li>
           </ul>
       </li>
-   </ol>  
-  </p>
-  <p>
-    Clasa folosita pentru crearea conexiuni ceruta de tip singleton este in pachetul <strong>connection</strong> si se
-    numeste <strong>ConnectionSingleton</strong>.
-  </p> 
-  <p>
-    Scriptul sql se gaseste in pachetul <strong>sqlscript</strong> si are numele <strong>databases.sql</strong>.
-  </p>  
-  <p>
-    Au fost create doua exceptii in pachetul <strong>exceptions</strong>
-    <ul> 
-      <li><em>NoGenreException</em></li>
-      <li><em>NoMovieException</em></li>
-    </ul>  
-  </p>  
-  <p>
-    Clasele DAO se afla in pachetul <strong>dao</strong>: 
-   <ol>
-     <li><strong>Genres</strong>
-       <ul>
-         <li><em>PreparedStatement insertStmt</em></li>
-         <li><em>PreparedStatement getStmtById</em></li>
-         <li><em>PreparedStatement getStmtByName</em></li>
-         <li><em>void InsertGenre(Genre genre) throws NoGenreException</em></li>
-         <li><em>Genre getGenreById(int id) throws  NoGenreException</em></li>
-         <li><em>Genre getGenreByTitle(String title) throws  NoGenreException</em></li>
-       </ul>
+     <li><strong>Pair</strong>
+           <ul>
+             <li>int first</li>
+             <li>int second</li>
+             <li><em> @Override public String toString()</em></li>
+           </ul>
       </li>
-      <li><strong>Movies</strong> 
-          <ul>
-             <li><em>PreparedStatement insertStmt</em></li>
-             <li><em>PreparedStatement getStmtById</em></li>
-             <li><em>PreparedStatement getStmtByName</em></li>
-             <li><em>void InsertMovie(Movie movie) throws NoMovieException</em></li>
-             <li><em>Movie getMovieById(int id) throws  NoMovieException</em></li>
-             <li><em>Movie getMovieByTitle(String title) throws  NoMovieException</em></li>
-          </ul>
+     <li><strong>Token</strong>
+        <ul>
+            <li>Pair pair</li>
+            <li>int value</li>
+            <li><em> @Override public boolean equals(Object obj)</em> </li>
+            <li><em> @Override public String toString()</em> </li>
+        </ul>
       </li>
-   </ol>  
+       <li><strong>Player</strong>
+        <ul>
+            <li>String name</li>
+            <li>float rating</li>
+            <li>Color color</li>
+            <li>List(List(Token)) status = Collections.synchronizedList(new ArrayList<>())</li>
+            <li><em> @Override public boolean equals(Object obj)</em> </li>
+            <li><em> @Override public String toString()</em> </li>
+        </ul>
+      </li>
+      <li><strong>GameBoard extends Board</strong>
+        <ul>
+            <li>List<Token> representationBoard = Collections.synchronizedList(new ArrayList<>());</li>
+            <li><em> public List(Token) generateGameBoard(int limit)</em> -> Lista generata intr-un mod random</li>
+        </ul>
+      </li>
+      <li><strong>Game implements Playable</strong>
+        <ul>
+            <li>Player player1</li>
+            <li>Player player2</li>
+            <li>volatile Player firstToStart</li>
+            <li>GameBoard gameBoard</li>
+            <li><em>void showResults()</em></li>
+            <li><em>@Override public void play()</em> -> <strong>metoda in care vor fi create thread-urile</strong></li>
+        </ul>
+      </li>
+      <li><strong>PlayGame implements Runnable</strong>
+        <ul>
+            <li>Player player</li>
+            <li>Game game</li>
+            <li>GameBoard gameBoard</li>
+            <li><em> @Overridepublic void run()</em></li>
+            <li><em> void makeMove()</em> -> <strong> metoda in care se extrag jetoanele</strong></li>
+        </ul>
+      </li>
+    </ol>
   </p>
   <p>
-  Fiecare functionalitate a claselor DAO a fost testata in clasa <strong>Main</strong> in metoda <em>main</em>.
-  </p>
+    <em>Ideea jocului este usor modificata: </em> fiecare player extrage cate un jeton unul dupa altul pana cand tabla este goala astfel incat sa formeze cel mai lung, dar
+    nu este obligatoriu ca drumul sa se termine in acelasi loc. Adica drumurile de genul (2,1) (1,2) (2,3) sunt permise.<br>
+    -> Lista userului<strong> status</strong> este o Lista de Liste intrucat, algoritmul din spate a fost gandit in felul urmator: construieste o lista incercand sa adaugi un nou token 
+    la inceputul ei sau la finalul ei. Daca nu exista exista cum sa se adauge la aceasta lista, atunci adauga o alta lista la listele userului cu un token random si tura viitoare verifica la amandoua daca poti adauga, daca nu fa alta.<br>
+    <em>Algoritmul se gaseste in PlayGame -> MakeMove()</em>
+  </p>  
   </body>
 </html>
