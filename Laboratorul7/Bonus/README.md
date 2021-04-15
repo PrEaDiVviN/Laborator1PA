@@ -51,5 +51,8 @@
       <li><em>public static void makeMoveSmallestDifference (Game game, GameBoard gameBoard))</em> ->(SMALLESTDIFFERENCECOMPUTER) (<em>Folosit pt conectarea dintre JavaFX thread cu thread-3 in PlayGame. Thread-ul 3 este responsabil doar pt pastrarea ordinii de selectie a tokenilor, in timp ce thread-ul JavaFX se ocupa de extragerea tokenului. </em>) -> <strong>NEW</strong>  </li>
     </ul>
   </p>  
+  <p>
+    Fotografii referitoare la interfata se gasesc aici  <a href="https://github.com/PrEaDiVviN/PA-laboratoare/tree/main/Laboratorul7/Bonus/Photos">Photos</a>
+  </p>
   </body>
 </html>
