@@ -1,0 +1,2 @@
+DROP TABLE employees;
+CREATE TABLE employees (id int PRIMARY KEY, name VARCHAR(50) NOT NULL UNIQUE, birthName VARCHAR(70) NOT NULL, height int NOT NULL, birthDate VARCHAR(50) NOT NULL, type VARCHAR(30) NOT NULL);
