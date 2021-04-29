@@ -58,7 +58,9 @@ public class ClientHandler {
             else if(reply.contains("send"))
             	this.handleSent(output,input);
             else if(reply.contains("read"))
-            	this.handleRead(output,input);
+            	this.handleSent(output,input);
+            else if(reply.contains("add friend"))
+            	this.addFriends(output,input);
             else {
                 try {
                     System.out.println(input.readLine());
@@ -179,7 +181,7 @@ public class ClientHandler {
         
     }
 
-    private void handleRead(PrintWriter output, BufferedReader input) {
+    private void addFriends(PrintWriter output, BufferedReader input) {
     	//citim  mesajele de la server si le afisam pe ecran
         String mesaje = null;
         try {
@@ -189,5 +191,16 @@ public class ClientHandler {
             e.printStackTrace();
         }
     }
+
+     private void handle(PrintWriter output, BufferedReader input) {
+     	//citim reply-ul serverului
+        String reply = null;
+        try {
+            reply = input.readLine();
+            System.out.println(reply);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+     }
 
 }
