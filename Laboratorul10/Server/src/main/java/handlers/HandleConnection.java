@@ -78,8 +78,27 @@ public class HandleConnection extends Thread{
         }
     }
 
-    public void addFriends(String request) {
-
+    public void addFriends(String request, PrintWriter output, BufferedReader input) {
+        //construim un String cu useri ca nu exista
+        String notExistingUser = new String("");
+        String[] friends = request.split(" ");
+        for(int i = 2; i < friends.length; i++) {
+            boolean adaugat = false;
+            for (Person user : this.serverTcp.getUsers())
+                if(user.getUsername().compareTo(friends[i]) == 0) {
+                    adaugat = true;
+                    onlinePerson.getFriendList().add(friends[i]);
+                    break;
+                }
+            if(!adaugat) {
+                notExistingUser = notExistingUser + ", " + friends[i];
+            }
+        }
+        //trimitem mesajul la client
+        if(notExistingUser.compareTo("") == 0)
+            output.println("Success: All the users were added to your friendlist.");
+        else
+             output.println("Error: the following users could not be added! " + notExistingUser);
     }
 
     public void sendMessage(PrintWriter output, BufferedReader input) {
@@ -178,8 +197,8 @@ public class HandleConnection extends Thread{
                 this.handleLogin(writer,input);
             else if(request.compareTo("register") == 0 && (onlinePerson == null || !onlinePerson.isOnline()))
                 this.handleRegister(writer,input);
-            else if(request.startsWith("add friend: ") && onlinePerson!= null)
-                this.addFriends(request);
+            else if(request.startsWith("add friend ") && onlinePerson!= null)
+                this.addFriends(request, writer, input);
             else if(request.startsWith("send") && onlinePerson != null)
                 this.sendMessage(writer, input);
             else if(request.compareTo("read") == 0 && onlinePerson != null)
